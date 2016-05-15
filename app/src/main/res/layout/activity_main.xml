@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +9,130 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="tccbenchmarksuite.com.bernardo.tccbenchmarksuite.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/activity_main_et_pid"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:hint="Digite o PID ou clique nos botões abaixo" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/activity_main_ll_pidButtons"
+            android:layout_below="@id/activity_main_et_pid">
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_main_btn_AndroidStudioProcess"
+                android:text="AS"
+                android:onClick="btnGetAndroidStudioPidClicked"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_main_btn_XamarinProcess"
+                android:text="Xamarin"
+                android:onClick="btnGetXamarinPidClicked"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/activity_main_btn_ApperyProcess"
+                android:text="Appery"
+                android:onClick="btnGetApperyPidClicked"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_ll_labelCheckBoxes"
+            android:layout_below="@id/activity_main_ll_pidButtons">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O que deseja monitorar?"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_ll_checkboxes"
+            android:layout_below="@id/activity_main_ll_labelCheckBoxes">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Memória"
+                android:id="@+id/activity_main_cb_memory"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/activity_main_et_pid"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CPU"
+                android:id="@+id/activity_main_cb_cpu"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/activity_main_cb_memory"/>
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disco"
+                android:id="@+id/activity_main_cb_disk"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="16dp"
+                android:layout_below="@id/activity_main_cb_cpu"/>
+
+
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Monitorar"
+            android:id="@+id/activity_main_btn_monitor"
+            android:layout_gravity="bottom"
+            android:layout_below="@id/activity_main_ll_checkboxes"
+            android:onClick="btnMonitorClicked"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parar"
+            android:id="@+id/activity_main_btn_stop_monitoring"
+            android:layout_below="@id/activity_main_ll_checkboxes"
+            android:layout_toRightOf="@id/activity_main_btn_monitor"
+            android:onClick="btnStopMonitorClicked"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/activity_main_ll_results"
+            android:layout_below="@id/activity_main_btn_monitor"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</ScrollView>
