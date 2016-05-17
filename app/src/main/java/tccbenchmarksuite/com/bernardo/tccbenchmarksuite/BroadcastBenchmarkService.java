@@ -102,7 +102,9 @@ public class BroadcastBenchmarkService extends Service {
             //RandomAccessFile freqReader = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq", "r");
             //String freqLoad = freqReader.readLine();
             //int freqLoad = Integer.parseInt(freqReader.readLine());
-            int USER_HZ = 100;
+            float USER_HZ = 100F;
+
+            // /proc/{pid}/smaps
 
             RandomAccessFile totalSystemTime = new RandomAccessFile("proc/uptime", "r");
             float upTime = Float.parseFloat(totalSystemTime.readLine().split(" ")[0]);
@@ -117,6 +119,9 @@ public class BroadcastBenchmarkService extends Service {
 //            #16 cutime - Waited-for children's CPU time spent in user code (in clock ticks)
 //            #17 cstime - Waited-for children's CPU time spent in kernel code (in clock ticks)
 //            #22 starttime - Time when the process started, measured in clock ticks
+
+
+            // TODO: Medir somente os ticks
 
             long uTime = Long.parseLong(toks[13]);
             long sTime = Long.parseLong(toks[14]);
