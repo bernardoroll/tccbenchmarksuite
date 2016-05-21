@@ -11,7 +11,10 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class BroadcastBenchmarkService extends Service {
 
@@ -56,7 +59,7 @@ public class BroadcastBenchmarkService extends Service {
     private Runnable sendUpdatesToUI = new Runnable() {
         public void run() {
             DisplayLoggingInfo();
-            handler.postDelayed(this, 5000);
+            handler.postDelayed(this, 100);
         }
     };
 
@@ -72,7 +75,14 @@ public class BroadcastBenchmarkService extends Service {
         if(diskCheck) {
             intent.putExtra("diskUsage", getDiskInfo());
         }
-        intent.putExtra("time", new Date().toLocaleString());
+        //Calendar now = Calendar.getInstance(Locale.getDefault());
+
+        //intent.putExtra("time", new Date().toLocaleString());
+        //String t = String.format(Locale.getDefault(), "%02d:%02d:%02d.%03d", now.get(Calendar.HOUR),
+        //        now.get(Calendar.MINUTE), now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
+        Calendar t = new GregorianCalendar();
+        intent.putExtra("time", t.getTimeInMillis());
+
         intent.putExtra("counter", ++counter);
         sendBroadcast(intent);
     }
@@ -95,19 +105,23 @@ public class BroadcastBenchmarkService extends Service {
         return -1;
     }
 
-    private float getCpuInfo() {
+    private long getCpuInfo() {
         try {
             //Tentar pegar a frequencia do processador
             ///sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
             //RandomAccessFile freqReader = new RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq", "r");
             //String freqLoad = freqReader.readLine();
             //int freqLoad = Integer.parseInt(freqReader.readLine());
-            float USER_HZ = 100F;
+            //float USER_HZ = 100F;
 
             // /proc/{pid}/smaps
 
-            RandomAccessFile totalSystemTime = new RandomAccessFile("proc/uptime", "r");
-            float upTime = Float.parseFloat(totalSystemTime.readLine().split(" ")[0]);
+            //RandomAccessFile smaps = new RandomAccessFile("/proc/" + this.pid + "/maps", "r");
+            //String stringSmpas = smaps.readLine();
+
+
+            //RandomAccessFile totalSystemTime = new RandomAccessFile("proc/uptime", "r");
+            //float upTime = Float.parseFloat(totalSystemTime.readLine().split(" ")[0]);
 
             RandomAccessFile reader = new RandomAccessFile("/proc/" + this.pid + "/stat", "r");
             String load = reader.readLine();
@@ -123,22 +137,25 @@ public class BroadcastBenchmarkService extends Service {
 
             // TODO: Medir somente os ticks
 
-            long uTime = Long.parseLong(toks[13]);
-            long sTime = Long.parseLong(toks[14]);
-            long cuTime = Long.parseLong(toks[15]);
-            long csTime = Long.parseLong(toks[16]);
-            long startTime = Long.parseLong(toks[21]);
+            //long uTime = Long.parseLong(toks[13]);
+            //long sTime = Long.parseLong(toks[14]);
+            //long cuTime = Long.parseLong(toks[15]);
+            //long csTime = Long.parseLong(toks[16]);
+            //long startTime = Long.parseLong(toks[21]);
 
-            long total_time = uTime + sTime;
-            total_time = total_time + cuTime + csTime;
-            float seconds = upTime - (startTime / USER_HZ);
+            //long total_time = uTime + sTime;
+            //total_time = total_time + cuTime + csTime;
+            //float seconds = upTime - (startTime / USER_HZ);
             //float seconds2 = upTime - (startTime / freqLoad);
 
-            float cpu_usage = 100 * ((total_time / USER_HZ) / seconds);
+            //float cpu_usage = 100 * ((total_time / USER_HZ) / seconds);
             //float cpu_usage2 = 100 * ((total_time / freqLoad) / seconds2);
 
 
-            return cpu_usage;
+
+            return Long.parseLong(toks[13]) + Long.parseLong(toks[14]);
+
+            //return cpu_usage;
 /*
 
             long idle1 = Long.parseLong(toks[4]);
