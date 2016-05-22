@@ -192,13 +192,14 @@ public class MainActivity extends AppCompatActivity {
         unregisterReceiver(broadcastReceiver);
         stopService(broadcastIntent);
 
-        Calendar endTime = new GregorianCalendar();
+        //Calendar endTime = new GregorianCalendar();
+        long endTime = System.currentTimeMillis();
         TextView tvEndTime = new TextView(this);
         tvEndTime.setText("------------------------------------");
         mLlResults.addView(tvEndTime);
 
         tvEndTime = new TextView(this);
-        tvEndTime.setText("Timestamp final: " + String.valueOf(endTime.getTimeInMillis()));
+        tvEndTime.setText("Timestamp final: " + String.valueOf(endTime));
         mLlResults.addView(tvEndTime);
 
         generateDataFile();
@@ -331,10 +332,10 @@ public class MainActivity extends AppCompatActivity {
         broadcastIntent.putExtra("isCpuChecked", mCbCpu.isChecked());
         broadcastIntent.putExtra("isDiskChecked", mCbDisk.isChecked());
 
-        Calendar startTime = new GregorianCalendar();
-
+        //Calendar startTime = new GregorianCalendar();
+        long startTime = System.currentTimeMillis();
         TextView tvStartTime = new TextView(this);
-        tvStartTime.setText("Timestamp inicial: " + String.valueOf(startTime.getTimeInMillis()));
+        tvStartTime.setText("Timestamp inicial: " + String.valueOf(startTime));
         mLlResults.addView(tvStartTime);
 
         tvStartTime = new TextView(this);
