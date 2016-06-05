@@ -80,8 +80,8 @@ public class BroadcastBenchmarkService extends Service {
         //intent.putExtra("time", new Date().toLocaleString());
         //String t = String.format(Locale.getDefault(), "%02d:%02d:%02d.%03d", now.get(Calendar.HOUR),
         //        now.get(Calendar.MINUTE), now.get(Calendar.SECOND), now.get(Calendar.MILLISECOND));
-        Calendar t = new GregorianCalendar();
-        intent.putExtra("time", t.getTimeInMillis());
+        //Calendar t = new GregorianCalendar();
+        intent.putExtra("time", System.currentTimeMillis());
 
         intent.putExtra("counter", ++counter);
         sendBroadcast(intent);
